@@ -1,0 +1,14 @@
+name: Github Runner Docker Image
+on:
+  push:
+    paths:
+      - 'runner-docker-image/**'
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Docker Build
+        run: |
+          docker build rkalluru/d84-github-runner .
+
+
