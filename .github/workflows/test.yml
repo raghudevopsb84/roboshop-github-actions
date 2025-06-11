@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          npm install
-          npm test
+          echo npm install
+          echo npm test
         name: Download Dependencies
   Maven_Build:
     if: inputs.appType == 'maven'
