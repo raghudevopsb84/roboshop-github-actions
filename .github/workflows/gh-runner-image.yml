@@ -12,6 +12,7 @@ jobs:
       - name: Docker Build
         run: |
           cd runner-docker-image
-          #docker build -t rkalluru/d84-github-runner .
+          docker build -t rkalluru/d84-github-runner .
           docker login -u rkalluru -p ${{ secrets.DOCKER_TOKEN }}
+          docker push rkalluru/d84-github-runner
 
