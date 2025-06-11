@@ -10,6 +10,7 @@ jobs:
     if: inputs.appType == 'nodejs'
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v4
       - run: npm install
         name: Download Dependencies
   Maven_Build:
