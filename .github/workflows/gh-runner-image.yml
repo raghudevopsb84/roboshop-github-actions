@@ -9,6 +9,6 @@ jobs:
     steps:
       - name: Docker Build
         run: |
-          docker build rkalluru/d84-github-runner .
+          docker build -t rkalluru/d84-github-runner .
 
 
