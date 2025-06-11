@@ -1,0 +1,23 @@
+name: Test Cases
+on:
+  workflow_call:
+    inputs:
+      appType:
+        required: true
+        type: string
+jobs:
+  NodeJS_Test:
+    if: inputs.appType == 'nodejs'
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          npm install
+          npm test
+        name: Download Dependencies
+  Maven_Build:
+    if: inputs.appType == 'maven'
+    runs-on: self-hosted
+    steps:
+      - run: echo OK
+
