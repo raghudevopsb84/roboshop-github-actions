@@ -8,7 +8,8 @@ RUN               curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s
 RUN               dnf module disable nodejs -y && dnf module enable nodejs:22 -y && dnf install nodejs npm -y
 # MAVEN
 RUN               dnf install maven -y
-RUN               useradd github
+RUN               groupadd -g 993 github
+RUN               useradd -g 993 github
 USER              github
 WORKDIR           /home/github
 RUN               curl -o actions-runner-linux-x64-2.324.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.324.0/actions-runner-linux-x64-2.324.0.tar.gz && tar xzf ./actions-runner-linux-x64-2.324.0.tar.gz
