@@ -13,17 +13,20 @@ jobs:
     uses: raghudevopsb84/roboshop-github-actions/.github/workflows/build.yml@main
     with:
       appType: '${{ inputs.appType }}'
+      appName: '${{ inputs.appName }}'
       docker_build: "false"
   Test:
     needs: Build
     uses: raghudevopsb84/roboshop-github-actions/.github/workflows/test.yml@main
     with:
       appType: '${{ inputs.appType }}'
+      appName: '${{ inputs.appName }}'
   DockerBuild:
     needs: Test
     uses: raghudevopsb84/roboshop-github-actions/.github/workflows/build.yml@main
     with:
       appType: '${{ inputs.appType }}'
+      appName: '${{ inputs.appName }}'
       docker_build: "true"
   Dev_deploy:
     environment: DEV
