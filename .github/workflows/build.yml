@@ -11,9 +11,9 @@ on:
       docker_build:
         required: true
         type: string
-#     secrets:
-#       vault_token:
-#         required: true
+    secrets:
+      vault_token:
+        required: true
 jobs:
   NodeJS_Build:
     if: inputs.appType == 'nodejs'
