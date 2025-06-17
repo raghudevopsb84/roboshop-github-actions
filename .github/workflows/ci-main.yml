@@ -18,8 +18,6 @@ jobs:
       appType: '${{ inputs.appType }}'
       appName: '${{ inputs.appName }}'
       docker_build: "false"
-    secrets:
-      vault_token: '${{ secrets.vault_token }}'
   Test:
     needs: Build
     uses: raghudevopsb84/roboshop-github-actions/.github/workflows/test.yml@main
