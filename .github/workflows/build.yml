@@ -11,6 +11,9 @@ on:
       docker_build:
         required: true
         type: string
+    secrets:
+      vault_token:
+        required: true
 jobs:
   NodeJS_Build:
     if: inputs.appType == 'nodejs'
@@ -19,7 +22,7 @@ jobs:
       vault_token: ${{ secrets.vault_token }}
     steps:
       - uses: actions/checkout@v4
-      - run: npm install
+      - run: echo npm install
         name: Download Dependencies
       - name: Import Secrets
         id: import-secrets
