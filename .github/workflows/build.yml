@@ -15,39 +15,18 @@ on:
       vault_token:
         required: true
 jobs:
-  NodeJS_Build:
-    if: inputs.appType == 'nodejs'
+  Build:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
       - run: npm install
-        name: Download Dependencies
-      - name: Import Secrets
-        id: import-secrets
-        uses: hashicorp/vault-action@v2
-        with:
-          url: http://vault-int.rdevopsb84.online:8200/
-          token: ${{ secrets.vault_token }}
-          secrets: |
-            roboshop-infra/data/azure-sp ARM_CLIENT_ID | ARM_CLIENT_ID ;
-            roboshop-infra/data/azure-sp ARM_CLIENT_SECRET | ARM_CLIENT_SECRET ;
-            roboshop-infra/data/azure-sp ARM_TENANT_ID | ARM_TENANT_ID ;
-            roboshop-infra/data/azure-sp ARM_SUBSCRIPTION_ID | ARM_SUBSCRIPTION_ID ;
-      - name: Docker Build
-        if: inputs.docker_build == 'true'
-        run: |
-          az login --service-principal --username "${ARM_CLIENT_ID}" --password "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
-          az acr login --name roboshopb84
-          docker build -t roboshopb84.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
-          docker push roboshopb84.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
-  Maven_Build:
-    if: inputs.appType == 'maven'
-    runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
+        name: Download NodeJS Dependencies
+        if: inputs.appType == 'nodejs'
       - run: mvn package
-        name: Download Dependencies
+        name: Download Maven Dependencies
+        if: inputs.appType == 'maven'
       - name: Import Secrets
+        if: inputs.docker_build == 'true'
         id: import-secrets
         uses: hashicorp/vault-action@v2
         with:
@@ -65,11 +44,5 @@ jobs:
           az acr login --name roboshopb84
           docker build -t roboshopb84.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
           docker push roboshopb84.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
-  Angular_Build:
-    if: inputs.appType == 'angular'
-    runs-on: self-hosted
-    steps:
-      - run: echo ng build
-
 
 
