@@ -6,22 +6,19 @@ on:
         required: true
         type: string
 jobs:
-  NodeJS_Test:
-    if: inputs.appType == 'nodejs'
+  Test:
+    needs: Build
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
       - run: |
           echo npm install
           echo npm test
-        name: Download Dependencies
-  Maven_Test:
-    if: inputs.appType == 'maven'
-    runs-on: self-hosted
-    steps:
+        name: Run NodeJS Tests
+        if: inputs.appType == 'nodejs'
       - run: echo mvn test
-  Python_Test:
-    if: inputs.appType == 'python'
-    runs-on: self-hosted
-    steps:
+        name: Run Maven Tests
+        if: inputs.appType == 'maven'
       - run: echo python -m unittest
+        name: Run Python Tests
+        if: inputs.appType == 'python'
