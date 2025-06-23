@@ -48,7 +48,7 @@ jobs:
 
   Dev_deploy:
     needs: DockerBuild
-    environment: DEV
+    #environment: DEV
     uses: raghudevopsb84/roboshop-github-actions/.github/workflows/aks-deploy.yml@main
     with:
       appEnv: 'dev'
