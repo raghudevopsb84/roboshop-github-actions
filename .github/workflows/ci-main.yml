@@ -46,34 +46,34 @@ jobs:
     secrets:
       vault_token: ${{ secrets.vault_token }}
 
-  Dev_deploy:
-    needs: DockerBuild
-    environment: DEV
-    uses: raghudevopsb84/roboshop-github-actions/.github/workflows/aks-deploy.yml@main
-    with:
-      appEnv: 'dev'
-      resourceGroup: 'ukwest-dev'
-    secrets:
-      vault_token: ${{ secrets.vault_token }}
-
-  Qa_Deploy:
-    environment: QA
-    runs-on: self-hosted
-    needs: Dev_deploy
-    steps:
-      - run: echo OK
-  Uat_Deploy:
-    environment: UAT
-    runs-on: self-hosted
-    needs: Qa_deploy
-    steps:
-      - run: echo OK
-  Prod_Deploy:
-    environment: PROD
-    runs-on: self-hosted
-    needs: Uat_Deploy
-    steps:
-      - run: echo OK
+#   Dev_deploy:
+#     needs: DockerBuild
+#     environment: DEV
+#     uses: raghudevopsb84/roboshop-github-actions/.github/workflows/aks-deploy.yml@main
+#     with:
+#       appEnv: 'dev'
+#       resourceGroup: 'ukwest-dev'
+#     secrets:
+#       vault_token: ${{ secrets.vault_token }}
+#
+#   Qa_Deploy:
+#     environment: QA
+#     runs-on: self-hosted
+#     needs: Dev_deploy
+#     steps:
+#       - run: echo OK
+#   Uat_Deploy:
+#     environment: UAT
+#     runs-on: self-hosted
+#     needs: Qa_deploy
+#     steps:
+#       - run: echo OK
+#   Prod_Deploy:
+#     environment: PROD
+#     runs-on: self-hosted
+#     needs: Uat_Deploy
+#     steps:
+#       - run: echo OK
 
 
 
