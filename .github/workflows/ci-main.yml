@@ -53,6 +53,7 @@ jobs:
     with:
       appEnv: 'dev'
       resourceGroup: 'ukwest-dev'
+      appName: '${{ inputs.appName }}'
     secrets:
       vault_token: ${{ secrets.vault_token }}
 
