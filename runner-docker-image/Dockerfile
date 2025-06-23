@@ -8,6 +8,8 @@ RUN               curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s
 RUN               dnf module disable nodejs -y && dnf module enable nodejs:22 -y && dnf install nodejs npm -y
 # MAVEN
 RUN               dnf install maven -y
+# HELM
+RUN               curl -L -o helm.tgz https://get.helm.sh/helm-v3.18.3-linux-amd64.tar.gz && tar -xzf helm-v3.18.3-linux-amd64.tar.gz && mv linux-amd64/helm /bin/helm && rm -rf helm-v3.18.3-linux-amd64.tar.gz linux-amd64
 RUN               useradd github
 USER              github
 WORKDIR           /home/github
