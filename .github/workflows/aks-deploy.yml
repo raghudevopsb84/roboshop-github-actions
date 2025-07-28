@@ -38,10 +38,9 @@ jobs:
       - name: Deploy
         run: |
           cd helm
-          echo az login --service-principal --username "${ARM_CLIENT_ID}" --password "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
-          echo az aks get-credentials --name main-${{ inputs.appEnv }} --resource-group ${{ inputs.resourceGroup }} --overwrite-existing
-          echo argocd login argocd-dev.rdevopsb84.online:80 --insecure --username admin --password $(kubectl get secrets argocd-initial-admin-secret -n argocd  -o=jsonpath='{.data.password}' |base64 --decode)
-          argocd login argocd-dev.rdevopsb84.online:80 --insecure --username admin --password $(kubectl get secrets argocd-initial-admin-secret -n argocd  -o=jsonpath='{.data.password}' |base64 --decode)
+          az login --service-principal --username "${ARM_CLIENT_ID}" --password "${ARM_CLIENT_SECRET}" --tenant "${ARM_TENANT_ID}"
+          az aks get-credentials --name main-${{ inputs.appEnv }} --resource-group ${{ inputs.resourceGroup }} --overwrite-existing
+          argocd login argocd-dev.rdevopsb84.online --insecure --username admin --password $(kubectl get secrets argocd-initial-admin-secret -n argocd  -o=jsonpath='{.data.password}' |base64 --decode) --skip-test-tls
           kubectl create ns app || true
           argocd app create ${{ inputs.appName }} --repo https://github.com/raghudevopsb84/roboshop-helm.git --path . --dest-namespace app --dest-server https://kubernetes.default.svc --values env-dev/${{ inputs.appName }}.yaml --helm-set appTag=${{ github.sha }} --upsert
           argocd app sync ${{ inputs.appName }}
