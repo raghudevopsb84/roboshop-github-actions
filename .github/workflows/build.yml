@@ -37,6 +37,11 @@ jobs:
             roboshop-infra/data/azure-sp ARM_CLIENT_SECRET | ARM_CLIENT_SECRET ;
             roboshop-infra/data/azure-sp ARM_TENANT_ID | ARM_TENANT_ID ;
             roboshop-infra/data/azure-sp ARM_SUBSCRIPTION_ID | ARM_SUBSCRIPTION_ID ;
+            roboshop-infra/data/sonarqube token | SONAR_TOKEN ;
+
+      - name: SonarQube Scan
+        run: /home/github/sonar-scanner-7.1.0.4889-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.rdevopsb84.online:9000 -Dsonar.token=${SONAR_TOKEN} -Dsonar.projectKey=roboshop-${{ inputs.appName }}
+
       - name: Docker Build
         if: inputs.docker_build == 'true'
         run: |
