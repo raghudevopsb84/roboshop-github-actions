@@ -43,6 +43,8 @@ jobs:
         if: inputs.docker_build == 'true'
         run: |
           /home/github/sonar-scanner-7.1.0.4889-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.rdevopsb84.online:9000 -Dsonar.token=${SONAR_TOKEN} -Dsonar.projectKey=roboshop-${{ inputs.appName }}
+          ### -Dsonar.qualitygate.wait=true
+          ### Above option to fail the pipeline, As of now we are not doing it.
 
       - name: Docker Build
         if: inputs.docker_build == 'true'
