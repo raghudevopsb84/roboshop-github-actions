@@ -42,8 +42,7 @@ jobs:
       - name: SonarQube Scan
         if: inputs.docker_build == 'true'
         run: |
-          echo /home/github/sonar-scanner-7.1.0.4889-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.rdevopsb84.online:9000 -Dsonar.token=${SONAR_TOKEN} -Dsonar.projectKey=roboshop-${{ inputs.appName }}
-          exit 1
+          /home/github/sonar-scanner-7.1.0.4889-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.rdevopsb84.online:9000 -Dsonar.token=${SONAR_TOKEN} -Dsonar.projectKey=roboshop-${{ inputs.appName }}
 
       - name: Docker Build
         if: inputs.docker_build == 'true'
